@@ -1,13 +1,14 @@
-
 package p25;
+
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import mysql.Conexion;
 
 public class frmInicio extends javax.swing.JFrame {
-    
-Conexion cnn = new Conexion();
+
+    Conexion cnn = new Conexion();
+
     public frmInicio() {
         initComponents();
     }
@@ -132,45 +133,46 @@ Conexion cnn = new Conexion();
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesconectarActionPerformed
-       try {
-       cnn.cerrar();
-       JOptionPane.showMessageDialog(null, "Desconexión correcta!");
-       } catch (SQLException ex){
-       JOptionPane.showMessageDialog(null, "Desconexión incorrecta!");
-       }
+        try {
+            cnn.cerrar();
+            JOptionPane.showMessageDialog(null, "Desconexión correcta!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Desconexión incorrecta!");
+        }
     }//GEN-LAST:event_btnDesconectarActionPerformed
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
-       String usr = txtUsuario.getText();
-       String pwd = txtPasword.getText();
-       String base= txtBD.getText();
-       
-       if(usr.isEmpty() || base.isEmpty()){
-           JOptionPane.showMessageDialog(null, "Debes escribir los datos que se piden.");
-       }else{
-           try{
-               cnn.obtener(usr, pwd, base);
-               JOptionPane.showMessageDialog(null, "Conexión exitosa!");
-           }catch(SQLException | ClassNotFoundException ex){
-            JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos!"); 
-           }finally{
-               txtUsuario.setText("");
-               txtPasword.setText("");
-               txtBD.setText("");
-           }
-       }
+        String usr = txtUsuario.getText();
+        String pwd = txtPasword.getText();
+        String base = txtBD.getText();
+
+        if (usr.isEmpty() || base.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes escribir los datos que se piden.");
+        } else {
+            try {
+                cnn.obtener(usr, pwd, base);
+                JOptionPane.showMessageDialog(null, "Conexión exitosa!");
+            } catch (SQLException | ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos!");
+                System.out.println(ex.toString()); 
+            } finally {
+                txtUsuario.setText("");
+                txtPasword.setText("");
+                txtBD.setText("");
+            }
+        }
     }//GEN-LAST:event_btnConectarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-       try{
-       JOptionPane.showMessageDialog(null, "Cerrando la base de datos...");   
-       TimeUnit.SECONDS.sleep(2);
-       cnn.cerrar();
-       JOptionPane.showMessageDialog(null, "Cierre correcto!");
-       System.exit(0);
-       }catch(SQLException | InterruptedException ex){
-        JOptionPane.showMessageDialog(null, "Lo sentimos, se pprodujo un error al cerrar la base de datos :( ");   
-       }
+        try {
+            JOptionPane.showMessageDialog(null, "Cerrando la base de datos...");
+            TimeUnit.SECONDS.sleep(2);
+            cnn.cerrar();
+            JOptionPane.showMessageDialog(null, "Cierre correcto!");
+            System.exit(0);
+        } catch (SQLException | InterruptedException ex) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, se pprodujo un error al cerrar la base de datos :( ");
+        }
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
